@@ -27,17 +27,13 @@ catch(PDOException $e)
 
 
 function loginScript($em,$pass,$type,$conn){
+
     if ($type ==1){
-        $table="tbl_clients";
-        $select = "client_id";
+        $login = "SELECT count(client_id) AS 'cli' FROM tbl_clients WHERE email='$em' AND password='$pass'";
     }else{
-        $table="tbl_staff";
-        $select = "staff_id";
+        $login = "SELECT count(staff_id) AS 'cli' FROM tbl_staff WHERE email='$em' AND password='$pass'";
 
     }
-
-    $login = "SELECT count($select) AS 'cli' FROM $table WHERE email='$em' AND password='$pass'";
-
     foreach ($conn->query($login) as $loginCheck) {
         if ($loginCheck['cli']==1){
             return true;

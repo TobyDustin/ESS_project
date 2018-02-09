@@ -103,6 +103,12 @@ echo shortestTimeStaff($conn);
 <select>
     <?php echo $service;?>
 </select>
+
+<hr>
+<?php
+$term = "brroklyn bridge"
+?>
+    <a href="https://maps.google.com/?q=<?php echo $term?>">Location Link</a>
 <hr>
 
 
