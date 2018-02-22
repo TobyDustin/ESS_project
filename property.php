@@ -11,7 +11,7 @@ if($row == false){
 else{
     while($row != false){
         echo '<a class = "address" href="http://localhost:8888/ESS_project/pages/Customer_Dashboard.php?address='.$row[address].'">';
-        echo "Address: $row[address]<br>";
+        echo "Address: $row[addressLine1]<br>";
         echo "Postcode: $row[postcode]<br>";
         echo '</a>';
         $row=$result->fetch();
