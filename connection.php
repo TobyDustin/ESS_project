@@ -15,11 +15,11 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Successfully connected to database $dbname" . "<br />";
+    //echo "Successfully connected to database $dbname" . "<br />";
 }
 catch(PDOException $e)
 {
-    echo "Connection failed: " . $e->getMessage();
+    //echo "Connection failed: " . $e->getMessage();
 }
 
 
@@ -53,7 +53,7 @@ function newClient($fist_name,$last_name,$email,$pass,$tel,$conn){
         // use exec() because no results are returned
         $conn->exec($sql);
     } catch (PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
+         echo $sql . "<br>" . $e->getMessage();
     }
 }
 

@@ -6,9 +6,25 @@ if (isset($_POST['signin'])) {
     $pass = hash('SHA512', $_POST['pass']);
 
     // The 1 is for clients anything else will be for staff
-    echo loginScript($em,$pass,1,$conn);
+    if (loginScript($em,$pass,1,$conn)){
+        session_start();
+        $_SESSION['customerToken']=$em;
+        header('location: Customer_Dashboard.php');
 
+    }else{
+        echo "<script>alert('that username and password combination is not recognised');</script>";
+    }
 }
+
+if (isset($_POST['signup'])){
+    $fist_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $pass = hash('SHA512', $_POST['pass']);
+    $tel = $_POST['tel'];
+    newClient($fist_name,$last_name,$email,$pass,$tel,$conn);
+}
+
 ?>
 
 <html>
@@ -114,7 +130,7 @@ if (isset($_POST['signin'])) {
                     <div class="modal-body">
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="signin">
-                                <form class="form-horizontal" action="index.php" method="post">
+                                <form class="form-horizontal" action="customerLogin.php" method="post">
                                     <fieldset>
                                         <!-- Sign In Form -->
                                         <!-- Text input-->
@@ -145,14 +161,14 @@ if (isset($_POST['signin'])) {
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="signup">
-                                <form class="form-horizontal" action="index.php" method="post">
+                                <form class="form-horizontal" action="customerLogin.php" method="post">
                                     <fieldset>
                                         <!-- Sign Up Form -->
                                         <!-- Text input-->
                                         <div class="control-group">
                                             <label class="control-label" for="firstname">First Name:</label>
                                             <div class="controls">
-                                                <input id="firstname" name="firstname" class="form-control" type="text" placeholder="Fistname" class="input-large" required>
+                                                <input id="firstname" name="first_name" class="form-control" type="text" placeholder="Fistname" class="input-large" required>
                                             </div>
                                         </div>
 
@@ -160,7 +176,7 @@ if (isset($_POST['signin'])) {
                                         <div class="control-group">
                                             <label class="control-label" for="Emailc">Last Name:</label>
                                             <div class="controls">
-                                                <input id="lastname" name="lastname" class="form-control" type="text" placeholder="Last Name" class="input-large" required>
+                                                <input id="lastname" name="last_name" class="form-control" type="text" placeholder="Last Name" class="input-large" required>
                                             </div>
                                         </div>
 
@@ -192,7 +208,7 @@ if (isset($_POST['signin'])) {
                                         <div class="control-group">
                                             <label class="control-label" for="password">password:</label>
                                             <div class="controls">
-                                                <input id="password" name="password" class="form-control" type="password" placeholder="Password" class="input-large" required>
+                                                <input id="password" name="pass" class="form-control" type="password" placeholder="Password" class="input-large" required>
                                             </div>
                                         </div>
 
@@ -204,14 +220,12 @@ if (isset($_POST['signin'])) {
                                             </div>
                                         </div>
 
-                                        <!-- Multiple Radios (inline) -->
-                                        <br>
 
                                         <!-- Button -->
                                         <div class="control-group">
                                             <label class="control-label" for="confirmsignup"></label>
                                             <div class="controls">
-                                                <button id="confirmsignup" name="confirmsignup" class="btn btn-success">Sign Up</button>
+                                                <button id="confirmsignup" name="signup" class="btn btn-success">Sign Up</button>
                                             </div>
                                         </div>
                                     </fieldset>

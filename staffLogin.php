@@ -6,7 +6,11 @@ if (isset($_POST['signin'])) {
     $pass = hash('SHA512', $_POST['pass']);
 
     // The 1 is for clients anything else will be for staff
-    echo loginScript($em,$pass,0,$conn);
+    if (loginScript($em,$pass,0,$conn)){
+        session_start();
+        $_SESSION['staffToken']=true;
+        header('location: staffdashboard.php');
+    }
 
 }
 ?>
@@ -112,7 +116,7 @@ if (isset($_POST['signin'])) {
                     <div class="modal-body">
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="signin">
-                                <form class="form-horizontal" action="index.php" method="post">
+                                <form class="form-horizontal" action="staffLogin.php" method="post">
                                     <fieldset>
                                         <!-- Sign In Form -->
                                         <!-- Text input-->
