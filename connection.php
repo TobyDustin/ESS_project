@@ -8,10 +8,16 @@
 $ver = "Beta 1.0";
 $servername = "localhost";
 <<<<<<< HEAD
+<<<<<<< HEAD
 $username = "test2";
 $password = "";
 $dbname = "ess";
 
+=======
+$username = "qnowwebsiteuser";
+$password = "oa#RgV5p}&R-";
+$dbname = "ess_database";
+>>>>>>> 3d51f6d51c060d5132af0b7a2d4ca5fda36f7503
 =======
 $username = "qnowwebsiteuser";
 $password = "oa#RgV5p}&R-";

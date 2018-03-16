@@ -18,11 +18,14 @@ if($row == false){
 else{
     while($row != false){
 <<<<<<< HEAD
+<<<<<<< HEAD
         echo '<a class = "address" href="http://localhost:8888/ESS_project/pages/Customer_Dashboard.php?address="'.$row[addressLine1].'>';
         echo "Address: $row[addressLine1]<br>";
         echo "Postcode: $row[postcode]<br>";
         echo '</a>';
 =======
+=======
+>>>>>>> 3d51f6d51c060d5132af0b7a2d4ca5fda36f7503
         $client = $row[clientID];
         $addressLine1= $row[addressLine1];
         $row[addressLine1]=ucwords($row[addressLine1]);
@@ -31,6 +34,9 @@ else{
         echo "$row[addressLine1]<br>";
         echo "$row[postcode]<br>";
         echo '</div></a>';
+<<<<<<< HEAD
+>>>>>>> 3d51f6d51c060d5132af0b7a2d4ca5fda36f7503
+=======
 >>>>>>> 3d51f6d51c060d5132af0b7a2d4ca5fda36f7503
         $row=$result->fetch();
     }
