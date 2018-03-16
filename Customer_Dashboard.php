@@ -1,5 +1,67 @@
 <?php
 require 'connection.php';
+session_start();
+
+if (isset($_POST['sub'])){
+    // script for adding product
+    $sql = "INSERT INTO `tbl_location`(`clientID`, `postcode`, `addressLine1`,`Town`, `County`) VALUES (:id,:postcode,:address,:town,:county)";
+    $stmt = $conn->prepare($sql);
+//Bind the provided username to our prepared statement.
+    $stmt->bindValue(':id', $_POST['id']);
+    $stmt->bindValue(':postcode', $_POST['postcode']);
+    $stmt->bindValue(':address',$_POST['address']);
+    $stmt->bindValue(':town',$_POST['town']);
+    $stmt->bindValue(':county',$_POST['county']);
+
+//Execute.
+    $stmt->execute();
+//enter code here
+}
+if (isset($_POST['newTick'])){
+
+    $add_id = $_POST['addressID'];
+    $client_id = $_POST['ident'];
+    $repeat = $_POST['repeat'];
+    $service = $_POST['serv'];
+    $staff_id= shortestTimeStaff($conn,$service);
+
+    $sql = "INSERT INTO `tbl_ticket`(`client_id`, `loc_id`, `service_id`, `staff_id`, `repeat_time`) VALUES (:client_id,:loc_id,:service,:staff_id,:repeat)";
+    $stmt = $conn->prepare($sql);
+
+//Bind the provided username to our prepared statement.
+    $stmt->bindValue(':client_id',$client_id);
+    $stmt->bindValue(':loc_id', $add_id);
+    $stmt->bindValue(':service',$service);
+    $stmt->bindValue(':staff_id',$staff_id);
+    $stmt->bindValue(':repeat',$repeat);
+
+//Execute.
+    $stmt->execute();
+//enter code here
+
+}
+
+
+$newJobFrom="";
+$service = "SELECT serv_id, service_name FROM tbl_services";
+foreach ($conn->query($service) as $row) {
+    $newJobFrom .= "<option value='$row[serv_id]'>$row[service_name]</option>";
+}
+$m = $_SESSION['customerToken'];
+$id="";
+$idSQL = "SELECT client_id FROM tbl_clients WHERE email='$m'";
+foreach ($conn->query($idSQL) as $rowID) {
+    $id = $rowID['client_id'];
+}
+$a = $_GET["address"];
+$loc_id="";
+$idSQL = "SELECT loc_id FROM tbl_location WHERE addressLine1='$a'";
+foreach ($conn->query($idSQL) as $rowID) {
+    $loc_id = $rowID['loc_id'];
+}
+$radioButtons="";
+$radioButtons .= "<input type='text' name='addressID' value='$loc_id' hidden><input type='text' name='ident' value='$id' hidden><input type='radio' name='repeat' value='0'>None<br /><input type='radio' name='repeat' value='1'>Daily<br /><input type='radio' name='repeat' value='2'>Weekly<br /><input type='radio' name='repeat' value='3'>Yearly<br />";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,6 +80,21 @@ require 'connection.php';
             });
         });
     </script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="script.js"></script>
+      <script>
+          function newJob() {
+              var e = document.getElementById("newProblem");
+              e.style.fontSize= "12pt";
+              e.innerHTML= "<form action='Customer_Dashboard.php' method='post'><select name='serv'><?php echo $newJobFrom; ?></select><br /><?php echo $radioButtons; ?><input type='submit' name='newTick' value='book'></form>";
+
+          }
+      </script>
+      <link rel="stylesheet" href="style.css">
+
   </head>
   <body>
       <div id="header">
@@ -31,7 +108,10 @@ require 'connection.php';
           if (isset($_GET["address"]))
           {
               $a = $_GET["address"];
-              $result = $conn->query("SELECT first_name,last_name,service_name,addressLine1 FROM tbl_ticket t JOIN tbl_clients c ON (t.client_id=c.client_id) JOIN tbl_services s ON (s.serv_id = t.service_id) JOIN tbl_location l ON (t.loc_id=l.loc_id) WHERE l.loc_id=$a");
+              session_start();
+              $u = $_SESSION['customerToken'];
+
+              $result = $conn->query("SELECT a.first_name,a.last_name,service_name,t.timestamp,l.addressLine1,l.postcode,t.complete FROM tbl_ticket t JOIN tbl_clients c ON (t.client_id=c.client_id) JOIN tbl_services s ON (s.serv_id = t.service_id) JOIN tbl_location l ON (t.loc_id=l.loc_id) JOIN tbl_staff a ON (t.staff_id=a.staff_id) WHERE l.addressLine1='$a' AND c.email='$u' AND complete=0 ORDER BY complete ASC");
 
               $row = $result->fetch();
               if($row == false){
@@ -39,12 +119,16 @@ require 'connection.php';
               }
               else{
                   while($row != false){
+                      $first_name = ucfirst($row[first_name]);
+                      $last_name = ucfirst($row[last_name]);
+
                       echo '<div class = "tickets">';
                       echo "<p>";
-                      echo "First Name: $row[first_name]<br>";
-                      echo "Second Name: $row[last_name]<br>";
-                      echo "Service: $row[service_name]<br>";
-                      echo "Address: $row[addressLine1]<br>";
+                      echo "<b>$row[service_name]</b><br>";
+                      echo "<hr>";
+                      echo "$first_name ";
+                      echo "$last_name<br>";
+                      echo "$row[timestamp]<br>";
                       echo "</p>";
                       echo '</div>';
                       $row=$result->fetch();
@@ -53,7 +137,13 @@ require 'connection.php';
           }else{
               echo "<h>Welcome</h>";
           }
+          if (isset($_GET["address"])) {
+              echo '<div class = "tickets" id="newProblem" style="text-align: center">';
+              echo "";
+              echo "<button style='width: 100%; height:110px; font-size: 36pt;background-color: transparent;border: none' onclick='newJob()'>+</button><br>";
 
+              echo '</div>';
+          }
           ?>
       </div>
   </body>
