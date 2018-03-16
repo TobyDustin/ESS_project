@@ -1,0 +1,33 @@
+#nav {
+    display: inline-block;
+    background-color: #666547;
+    float: left;
+    width: 15vw;
+    height: 90vh;
+    margin-right: 10px;
+}
+
+.addressDIV{
+    margin: 5px;
+    padding: 2px;
+    background-color: #ffe28a;
+    border-radius:5px;
+    font-size: 18pt;
+}
+
+#main{
+
+}
+.tickets{
+    width: 250px;
+    font-size: 18pt;
+    float: left;
+    margin:5px;
+    padding: 10px;
+    background-color: #6fcb9f;
+}
+#addButtonProp{
+    background-color: transparent;
+    border: none;
+    width: 13vw;
+}

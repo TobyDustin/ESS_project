@@ -4,12 +4,14 @@ require 'connection.php';
 if (isset($_POST['signin'])) {
     $em = $_POST['email'];
     $pass = hash('SHA512', $_POST['pass']);
-
-    // The 1 is for clients anything else will be for staff
     if (loginScript($em,$pass,0,$conn)){
+
         session_start();
-        $_SESSION['staffToken']=true;
-        header('location: staffdashboard.php');
+        $_SESSION['staffToken']=$em;
+        header('location: Staff_Dashboard.php');
+
+    }else {
+        echo "<script>alert('that username and password combination is not recognised');</script>";
     }
 
 }
@@ -23,8 +25,10 @@ if (isset($_POST['signin'])) {
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-          </head>
-    
+      <link rel="stylesheet" href="stylesheet.css" type="text/css">
+
+  </head>
+    <body>
     <div id="Page_Title">CUSTOMER</div>
 
     <div id="Navigation">
@@ -156,5 +160,6 @@ if (isset($_POST['signin'])) {
                 </div>
             </div>
         </div>
-
+    </div>
+    </body>
 </html>
