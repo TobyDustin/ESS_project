@@ -7,22 +7,9 @@
  */
 $ver = "Beta 1.0";
 $servername = "localhost";
-<<<<<<< HEAD
-<<<<<<< HEAD
-$username = "test2";
-$password = "";
-$dbname = "ess";
-
-=======
 $username = "qnowwebsiteuser";
 $password = "oa#RgV5p}&R-";
 $dbname = "ess_database";
->>>>>>> 3d51f6d51c060d5132af0b7a2d4ca5fda36f7503
-=======
-$username = "qnowwebsiteuser";
-$password = "oa#RgV5p}&R-";
-$dbname = "ess_database";
->>>>>>> 3d51f6d51c060d5132af0b7a2d4ca5fda36f7503
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // set the PDO error mode to exception
@@ -82,6 +69,35 @@ function newLocation($client_id,$postcode,$addline,$addline2,$town,$county,$conn
 
 }
 
+function getPref($conn, $u)
+{
+    $sql = "SELECT pref FROM tbl_clients WHERE email='$u'";
+    foreach ($conn->query($sql) as $row) {
+        $tim = $row[pref];
+
+        return $tim;
+    }
+}
+
+
+
+function changePref($conn,$rep,$u){
+
+    $sql = "UPDATE tbl_clients SET pref=:pref WHERE email='$u'";
+    $stmt = $conn->prepare($sql);
+//Bind the provided username to our prepared statement.
+    $stmt->bindValue(':pref',$rep);
+
+
+//Execute.
+    $stmt->execute();
+
+}
+
+
+
+
+
 function OpenClosedTickets($conn){
     $openClose="[
           ['Status', 'Value'],";
@@ -130,15 +146,38 @@ function StaffRatio($conn){
 }
 
 
+function getRating($conn, $staff,$u){
 
+    $rating=0;
+    $ratings="";
+    $sql= "SELECT client_id FROM tbl_clients WHERE email='$u'";
+    foreach ($conn->query($sql) as $row){
+        $client_id = $row[client_id];
+    }
+    $sql= "SELECT staff_id, AVG(rating) AS rat FROM tbl_ratings WHERE staff_id='$staff' GROUP BY staff_id";
+    foreach ($conn->query($sql) as $row){
+        $rating = $row['rat'];
+        $staff=$row[staff_id];
+    }
+    $r =0;
+    $maxRating=$rating;
+    while ($rating >= 1) {
+        $r += 1;
+        $ratings .= "<a id='$r' onclick='ratingClicked($client_id,this.id,$staff)' class='ratingStars' onmouseover='changeStarColor(this.style.color, this)' onmouseout='changeBack(this)' style='color: black'  <span><i class='fas fa-star'></i></span></a>";
+        $rating -= 1;
+    }
+    if ($rating != 0) {
+        $r += 1;
+        $ratings .= "<a id='$r' onclick='ratingClicked($client_id,this.id,$staff)' class='ratingStars' onmouseover='changeStarColor(this.style.color, this)' onmouseout='changeBack(this)'  style='color: black' > <span><i class='fas fa-star-half'></i></span></a>";
 
+    }
 
-
-
-
-
-
-
+    for ($i = round($maxRating, 0, PHP_ROUND_HALF_UP); $i < 5; $i++) {
+        $r += 1;
+        $ratings .= "<a id='$r' onclick='ratingClicked($client_id,this.id,$staff)' class='ratingStars' onmouseover='changeStarColor(this.style.color, this)' onmouseout='changeBack(this)' style='color: lightgrey'> <span><i class='fas fa-star'></i></span></a>";
+    }
+    return $ratings;
+}
 
 
 

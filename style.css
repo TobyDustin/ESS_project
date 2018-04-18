@@ -2,9 +2,10 @@
     display: inline-block;
     background-color: #666547;
     float: left;
-    width: 15vw;
+    width: 250px;
     height: 90vh;
     margin-right: 10px;
+    overflow: scroll;
 }
 
 .addressDIV{
@@ -30,4 +31,19 @@
     background-color: transparent;
     border: none;
     width: 13vw;
+}
+
+
+#preference{
+    margin-bottom: 20px;
+}
+
+
+.preference{
+    text-align: right;
+    margin: 20px;
+}
+.preference label{
+    margin-left: 5px;
+    margin-right:5px;
 }

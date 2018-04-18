@@ -5,7 +5,62 @@
  * Date: 15/03/2018
  * Time: 15:43
  */
-require"connection.php"
+require"connection.php";
+
+if (isset($_GET['addService'])){
+    $serviceName = $_GET['serviceName'];
+    $time_taken= $_GET['timeTaken'];
+    $cost = $_GET['cost'];
+
+    try {
+        $sql = "INSERT INTO tbl_services(service_name, time_taken, cost) VALUES ('$serviceName','$time_taken','$cost')";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+if (isset($_GET['delService'])){
+    $id = $_GET['id'];
+
+    try {
+        $sql = "DELETE FROM `tbl_services` WHERE serv_id='$id'";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
+if (isset($_GET['addStaff'])){
+    $serviceName = $_GET['serviceName'];
+    $time_taken= $_GET['timeTaken'];
+    $cost = $_GET['cost'];
+
+    try {
+        $sql = "INSERT INTO tbl_services(service_name, time_taken, cost) VALUES ('$serviceName','$time_taken','$cost')";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
+if (isset($_GET['delStaff'])){
+    $id = $_GET['id'];
+
+    try {
+        $sql = "DELETE FROM `tbl_services` WHERE serv_id='$id'";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
+
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -108,7 +163,7 @@ require"connection.php"
             <ul class="dropdown-menu">
                 <li><a data-toggle="tab" href="#addStaff">Add Staff Member</a></li>
                 <li><a data-toggle="tab" href="#deleteStaff">Delete Staff Member</a></li>
-                <li><a data-toggle="tab" href="#changeStaff">Change Staff Member</a></li>
+
             </ul>
         </li>
         <li class="dropdown">
@@ -116,7 +171,6 @@ require"connection.php"
             <ul class="dropdown-menu">
                 <li><a data-toggle="tab" href="#addServ">Add Service</a></li>
                 <li><a data-toggle="tab" href="#deleteServ">Delete Service</a></li>
-                <li><a data-toggle="tab" href="#changeServ">Change Service</a></li>
             </ul>
         </li>
     </ul>
@@ -139,32 +193,85 @@ require"connection.php"
 
         <div id="addStaff" class="tab-pane fade">
             <h3>Add Staff Member</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <form action="adminDashboard.php" method="get">
+                <label for="edt_stafffirst_Name">Staff First Name</label><br />
+                <input id="edt_stafffirst_Name" name="edt_stafffirst_Name" type="text"><br />
+                <br />
+
+                <label for="edt_stafflast_Name">Staff Last Name</label><br />
+                <input id="edt_stafflast_Name" name="edt_stafflast_Name" type="text"><br />
+                <br />
+
+                <label for="edt_email">Email</label><br />
+                <input id="edt_email" name="edt_email" type="email"><br />
+                <br />
+
+                <label for="edt_password">Password</label><br />
+                <input id="edt_password" name="edt_password" type="password" ><br />
+                <br />
+
+                <label for="edt_telephone">Telephone Number</label><br />
+                <input id="edt_telephone" name="edt_telephone" type="text" ><br />
+                <br />
+
+                <label for="edt_admin">Admin</label>
+                <input id="edt_admin" name="edt_admin" type="checkbox" ><br />
+                <br />
+                    <label for="edt_staffADD">Search Service:</label><br />
+                    <input id="edt_staffADD" type="text" oninput="textsearch('addStaff',this.value)">
+                    <div id="dynam"></div>
+                <br />
+
+                <input type="submit" name="addStaff">
+
+            </form>
+
+
         </div>
+
+
         <div id="deleteStaff" class="tab-pane fade">
             <h3>Delete Staff Member</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <label for="edt_staffDEL">Search Service:</label><br />
+            <input id="edt_staffDEL" type="text" oninput="textsearch('delStaff',this.value)">
+            <div id="dynam"></div>
+
         </div>
-        <div id="changeStaff" class="tab-pane fade">
-            <h3>Change Staff Member</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
+
 
 
 
         <div id="addServ" class="tab-pane fade">
             <h3>Add Service </h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>
+                <form action="adminDashboard.php" method="get">
+                <label for="edt_serviceName">Service Name</label><br />
+                <input id="edt_serviceName" name="serviceName" type="text"><br />
+                <br />
+
+                <label for="edt_timeTaken">Time Taken (minutes)</label><br />
+                <input id="edt_timeTaken" name="timeTaken" type="number"><br />
+                <br />
+
+                <label for="edt_cost">Cost (£)</label><br />
+                <input id="edt_cost" name="cost" type="number" step="any"><br />
+                <br />
+
+                <input type="submit" name="addService">
+
+            </form>
+            </p>
         </div>
         <div id="deleteServ" class="tab-pane fade">
             <h3>Delete Service </h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-        <div id="changeServ" class="tab-pane fade">
-            <h3>Change Service</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
+            <label for="edt_serviceNameDEL">Search Service:</label><br />
+            <input id="edt_serviceNameDEL" type="text" oninput="textsearch('delServ',this.value)">
+            <div id="dynam"></div>
 
+
+        </div>
 
 
 

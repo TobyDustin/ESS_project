@@ -36,15 +36,7 @@ if (isset($_POST['signup'])){
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-          </head>
-    
-    <div id="Page_Title">CUSTOMER</div>
-
-    <div id="Navigation">
-        <ul>
-            <li><a href="Customer_Dashboard.html">Customer Dashboard</a></li>
-
-        </ul>
+  </head>
 
         
 <!--        <h1>Sign Up</h1>-->
@@ -241,6 +233,5 @@ if (isset($_POST['signup'])){
                 </div>
             </div>
         </div>
-    </div>
 
 </html>
