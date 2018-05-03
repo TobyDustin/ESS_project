@@ -1,0 +1,304 @@
+body
+{
+text-align: center;
+width: 2000px;
+margin:  auto;
+font-family:arial;      
+}
+
+h1
+{
+font-size: 40px;
+margin: 0 auto;
+align-content: center;
+color: black;
+text-align: center;
+
+}
+section
+{ }
+
+/*navigation*/
+.container
+{
+width: 2000px;       
+overflow: hidden;
+background-color: darkslategray;
+opacity: 0.9;
+    
+}
+
+header::after
+{
+content: '';
+display: table;
+clear: both;
+}
+
+
+nav 
+{}
+
+nav ul
+{
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+
+nav li
+{
+display: inline-block;
+margin: 0 35px;
+padding: 10px 0;
+position: relative;
+}
+
+nav a
+{
+color: aliceblue;
+text-decoration: none;
+text-transform: uppercase;
+font: avenir next; 
+font-size: 15px;
+}
+
+nav a:hover
+{
+color: black;
+}
+
+nav a::before
+{
+content: "";
+display:block;
+height: 5px;
+width: 100%;
+background-color:black;
+
+position: absolute;
+top: 0;
+width: 0%;
+
+transition: all ease-in-out 150ms;
+}
+
+nav a:hover::before
+{
+width: 100%
+}
+
+
+#top,#middle,#bottom{
+    height: 600px;
+    width: 300px;
+    background: green; 
+}
+
+/*end of navigaion*/
+
+/*sections */
+
+
+.section1
+
+{
+
+
+text-align: center;
+    
+height: 670px;
+margin-left: 20px;
+margin: 0 auto;
+margin-top: 90px;
+margin-bottom: 30px;   
+
+}
+  
+/*
+.parallax
+{
+width: 90%;
+align-content: center;
+margin-left: 6%;
+    
+    
+background-image: url(img/patio.jpg);
+background-image: 500px;
+min-height: 500px;
+
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+    
+
+    
+}
+
+*/
+
+.side_img
+{
+float: left;
+opacity: 1;
+text-align: center;
+}
+
+about p 
+{
+float: right;
+text-align: center;
+color: white;
+}
+
+.section2
+
+{}
+
+/*start of slide show design */
+#container
+{
+width: 60%;
+height: 350px;
+border: 1px solid #C59999;
+margin: 0 auto;
+position: relative;
+margin-top: 90px;
+margin-bottom: 90px;
+}
+
+
+#container>img
+{
+width: 100%;
+height: 100%;
+position: absolute;
+}
+
+#container>.btn
+{
+position:relative;
+width: 50px;
+border: none;
+height: 50px;
+border-radius: 25px;
+color: #C59999;
+top:200px;
+background: white;
+font-size: 20px;
+float: left;
+}
+
+#container>#btn2
+{
+position:relative;
+float: right;
+}
+	
+/*slide show design end*/	 
+
+
+/*about section*/
+.about
+{
+margin-top: 100px;
+text-align: right;
+}
+
+p
+{
+float: right;
+text-align: center;
+color: beige;
+font-size: 30px;
+    
+}
+
+
+/*start of information design*/
+
+#information
+{
+float 
+background-color: #EFEFEF;
+width: 35%;
+margin: 10px;
+display: inline;
+position: inherit;
+}
+ .section3
+{
+margin-bottom: 1000px;
+align-content: center;
+text-align: center;
+}
+
+.prod_box
+{
+width :40%;
+border: none;
+    
+text-align: justify;
+margin:30px;
+padding:3%;
+float: right;
+
+display: inline;
+opacity: 0.9;
+margin-bottom: 100px;
+}
+
+.button {
+background-color: #f4511e;
+border: none;
+color: white;
+padding: 16px 32px;
+text-align: center;
+font-size: 16px;
+opacity: 0.9;
+transition: 0.3s;
+text-decoration: none;
+cursor: pointer;
+
+}
+
+.team
+{
+margin-top: 50px;
+text-align: center;
+align-content: center;
+}
+/*start of the product box*/
+
+.avatar
+{
+vertical-align: middle;
+width: 170px;
+height: 170px;
+border-radius: 50%;
+display: inline;
+margin-left:100px;
+margin-top: 40px;
+}
+
+p1
+{
+margin-top: 500px;
+    
+
+}
+
+form
+
+{
+position: absolute;
+padding-left: 100px;
+float: left;
+}
+
+footer 
+{
+margin-top: 5\ 00px;
+}
