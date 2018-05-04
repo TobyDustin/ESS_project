@@ -1,0 +1,49 @@
+#nav {
+    display: inline-block;
+    background-color: #666547;
+    float: left;
+    width: 250px;
+    height: 90vh;
+    margin-right: 10px;
+    overflow: scroll;
+}
+
+.addressDIV{
+    margin: 5px;
+    padding: 2px;
+    background-color: #ffe28a;
+    border-radius:5px;
+    font-size: 18pt;
+}
+
+#main{
+
+}
+.tickets{
+    width: 250px;
+    font-size: 18pt;
+    float: left;
+    margin:5px;
+    padding: 10px;
+    background-color: #6fcb9f;
+}
+#addButtonProp{
+    background-color: transparent;
+    border: none;
+    width: 13vw;
+}
+
+
+#preference{
+    margin-bottom: 20px;
+}
+
+
+.preference{
+    text-align: right;
+    margin: 20px;
+}
+.preference label{
+    margin-left: 5px;
+    margin-right:5px;
+}
